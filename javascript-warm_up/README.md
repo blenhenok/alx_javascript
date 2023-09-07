@@ -27,7 +27,7 @@
 >Update this script to replace the value 12 with 89:
 >You are not allowed to use var
 
-4. 
+4. 13-add.js
 >Write a function that returns the addition of 2 integers.
 >The function must be visible from outside
 >The name of the function must be add
