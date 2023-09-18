@@ -6,5 +6,4 @@ const url = `https://swapi-api.alx-tools.com/api/films/${movie_id}`; {
     const json = JSON.parse(body);
     console.log(json.title);
   }
-});
-https://swapi-api.alx-tools.com/api/films/:id
+};
