@@ -1,9 +1,13 @@
-#!/usr/bin/node
 const request = require('request');
-const id = process.argv[2];
-request('http://swapi.co/api/films/' + id + '/', function (error, response, body) {
-  if (error == null) {
-    const json = JSON.parse(body);
-    console.log(json.title);
-  }
-});
+
+function get_movie_title(movie_id) {
+    const url = `https://swapi-api.alx-tools.com/api/films/${movie_id}`;
+    request(url, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            const movie_data = JSON.parse(body);
+            console.log(movie_data.title);
+        } else {
+            console.log("Error: Failed to fetch movie data");
+        }
+    });
+}
