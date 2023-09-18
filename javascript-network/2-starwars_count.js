@@ -13,7 +13,3 @@ function count_movies_with_wedge_antilles(api_url) {
         }
     });
 }
-
-// Example usage
-const api_url = "https://swapi-api.alx-tools.com/api/films/";
-count_movies_with_wedge_antilles(api_url);
