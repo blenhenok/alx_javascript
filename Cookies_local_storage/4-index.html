@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3/src/js.cookie.min.js"></script>
+    <script>
+        function deleteCookiesAndShowForm() {
+    Cookies.remove('firstname');
+    Cookies.remove('email');
+    showForm();
+}
+
+function setCookiesAndShowWelcomeMessage() {
+    const firstname = document.getElementById('firstname').value;
+    const email = document.getElementById('email').value;
+    const expiryDate = new Date();
+    expiryDate.setDate(expiryDate.getDate() + 10); // Cookie will expire in 10 days
+    Cookies.set('firstname', firstname, { expires: expiryDate });
+    Cookies.set('email', email, { expires: expiryDate });
+    showWelcomeMessageOrForm();
+}
+
+function showForm() {
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    if (welcomeMessage) {
+        welcomeMessage.remove();
+    }
+    document.getElementById('loginForm').style.display = 'block';
+}
+
+function hideForm() {
+    document.getElementById('loginForm').style.display = 'none';
+}
+
+function showWelcomeMessageOrForm() {
+    const firstname = Cookies.get('firstname');
+    if (!firstname) {
+        showForm();
+    } else {
+        hideForm();
+        const h1 = document.createElement('h1');
+        h1.innerHTML = `Welcome ${firstname} (<a href="#" onclick="deleteCookiesAndShowForm()" style="font-weight: normal; font-style: italic; margin-left: 10px;">logout</a>)`;
+        document.body.appendChild(h1);
+    }
+}
+
+window.onload = showWelcomeMessageOrForm;
+
+    </script>
+</head>
+<body>
+    <div id="loginForm">
+        <h2>Login</h2>
+        <input type="text" id="firstname" placeholder="First Name">
+        <input type="text" id="email" placeholder="Email">
+        <button onclick="setCookiesAndShowWelcomeMessage()">Log me in</button>
+    </div>
+    <button onclick="showCookies()">Show the cookies</button>
+</body>
+</html>
