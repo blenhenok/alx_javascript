@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advanced Shopping Cart</title>
+    <script>
+        const availableItems = ['Shampoo', 'Soap', 'Sponge', 'Water'];
+
+if (typeof(Storage) === "undefined") {
+    alert('Sorry, your browser does not support Web storage. Try again with a better one');
+} else {
+    createStore();
+    displayCart();
+}
+
+function getCartFromStorage() {
+    return JSON.parse(sessionStorage.getItem('cart')) || {};
+}
+
+function addItemToCart(item) {
+    const cart = getCartFromStorage();
+    cart[item] = (cart[item] || 0) + 1;
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+    displayCart();
+}
+
+function removeItemFromCart(item) {
+    const cart = getCartFromStorage();
+    delete cart[item];
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+    displayCart();
+}
+
+function clearCart() {
+    sessionStorage.clear();
+    displayCart();
+}
+
+function createStore() {
+    const h2 = document.createElement('h2');
+    h2.textContent = 'Available products:';
+    document.getElementById('store').appendChild(h2);
+
+    const ul = document.createElement('ul');
+    document.getElementById('store').appendChild(ul);
+
+    availableItems.forEach(function(item) {
+        const li = document.createElement('li');
+        li.textContent = item;
+        li.addEventListener('click', function() {
+            addItemToCart(item);
+        });
+        ul.appendChild(li);
+    });
+}
+
+function displayCart() {
+    let cartDiv = document.getElementById('cartDiv');
+    if (cartDiv) {
+        cartDiv.remove();
+    }
+
+    cartDiv = document.createElement('div');
+    cartDiv.id = 'cartDiv';
+    document.getElementById('cart').appendChild(cartDiv);
+
+    const h2 = document.createElement('h2');
+    h2.textContent = 'Your cart:';
+    cartDiv.appendChild(h2);
+
+    updateCart();
+}
+
+function updateCart() {
+    const cart = getCartFromStorage();
+
+    const ul = document.createElement('ul');
+    
+    if (Object.keys(cart).length === 0) {
+        const li = document.createElement('li');
+        li.textContent = 'Your cart is empty';
+        ul.appendChild(li);
+        
+        const clearButton = document.createElement('button');
+        clearButton.textContent = 'Clear my cart';
+        clearButton.addEventListener('click', clearCart);
+        ul.appendChild(clearButton);
+        
+        return;
+    }
+
+
+
+    
+}
+
+    </script>
+</head>
+<body>
+    <div id="store"></div>
+    <div id="cart"></div>
+</body>
+</html>
